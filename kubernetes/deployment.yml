@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: term-enforcer
+  labels:
+    project: term-enforcer
+    role: app-server
+    team: bre
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: term-enforcer
+      role: app-server
+  template:
+    metadata:
+      labels:
+        project: term-enforcer
+        role: app-server
+        team: bre
+      annotations:
+        samson/required_env: >
+          APP_ID
+          LOG_FORMAT
+          PRIVATE_KEY_PATH
+        secret/WEBHOOK_SECRET: webhook_secret
+        secret/PRIVATE_KEY: private_key
+
+    spec:
+      containers:
+      - name: term-enforcer
+        image: gcr.io/docker-images-180022/apps/term-enforcer:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+          - name: http
+            containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: term-enforcer
+  labels:
+    project: term-enforcer
+    role: app-server
+    team: bre
+spec:
+  selector:
+    project: term-enforcer
+    role: app-server
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

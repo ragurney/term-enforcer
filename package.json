@@ -1,0 +1,33 @@
+{
+  "name": "term-enforcer",
+  "version": "1.0.0",
+  "description": "automatically detects flagged terms and comments on them",
+  "contributors": [
+    {
+      "name": "Ryan Gurney"
+    }
+  ],
+  "license": "MIT",
+  "repository": "",
+  "scripts": {
+    "start": "probot run ./index.js",
+    "test": "standard"
+  },
+  "dependencies": {
+    "diffparser": "^2.0.1",
+    "probot": "^6.2.0",
+    "standard": "^12.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  }
+}
